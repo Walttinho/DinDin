@@ -1,5 +1,6 @@
 const express = require("express");
 const rotas = require("./rotas");
+require("dotenv").config();
 
 const app = express();
 
