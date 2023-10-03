@@ -1,5 +1,5 @@
 const login = require("./controller/autenticacao.controller");
-const buscarCategorias = require("./controller/categorias.controller");
+const buscarCategorias = require("./controladores/categorias.controladores");
 const validaToken = require("./middleware/autenticacao.middleware");
 
 const rotas = require("express")();
