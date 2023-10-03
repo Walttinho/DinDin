@@ -3,6 +3,7 @@ const validaToken = require("./middleware/autenticacao.middleware");
 const {
   cadastrarUsuario,
   detalhesUsuario,
+  atualizarUsuario,
 } = require("./controladores/usuarios");
 const login = require("./controladores/autenticacao.controladores");
 const {
@@ -18,6 +19,8 @@ rotas.post("/login", login);
 rotas.use(validaToken); // todas rotas abaixo serão necessário login
 
 rotas.get("/usuario", detalhesUsuario);
+
+rotas.put("/usuario", atualizarUsuario);
 
 rotas.get("/categorias", buscarCategorias);
 

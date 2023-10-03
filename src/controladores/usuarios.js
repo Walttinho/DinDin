@@ -47,4 +47,37 @@ const detalhesUsuario = async (req, res) => {
   }
 };
 
-module.exports = { cadastrarUsuario, detalhesUsuario };
+const atualizarUsuario = async (req, res) => {
+  const { nome, email, senha } = req.body;
+
+  if (!nome || !email || !senha) {
+    return res.status(400).json({ mensagem: "Informações incompletas" });
+  }
+
+  try {
+    const { rowCount, rows } = await pool.query(
+      "select * from usuarios where id = $1",
+      [req.usuarioId]
+    );
+    if (rowCount > 0 && email != rows[0].email) {
+      return res.status(400).json({
+        mensagem:
+          "O e-mail informado já está sendo utilizado por outro usuário.",
+      });
+    }
+
+    const senhaEncriptada = await bcrypt.hash(senha, 10);
+
+    await pool.query(
+      "update usuarios set nome = $1, email = $2, senha = $3 where id = $4",
+      [nome, email, senhaEncriptada, req.usuarioId]
+    );
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensagem: "Erro no servidor." });
+  }
+};
+
+module.exports = { cadastrarUsuario, detalhesUsuario, atualizarUsuario };
