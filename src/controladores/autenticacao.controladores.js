@@ -29,7 +29,16 @@ const login = async (req, res) => {
       expiresIn: 28800,
     });
 
-  res.status(200).json({usuario, token})
+    const resposta = {
+      "usuario": {
+          "id": usuario.rows[0].id,
+          "nome": usuario.rows[0].nome,
+          "email": usuario.rows[0].email
+      },
+      "token": token
+  }
+
+  res.status(200).json(resposta)
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensagem: "Erro no servidor." });

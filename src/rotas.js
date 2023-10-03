@@ -1,9 +1,10 @@
-const login = require("./controller/autenticacao.controller");
+
 const buscarCategorias = require("./controladores/categorias.controladores");
 const validaToken = require("./middleware/autenticacao.middleware");
+const { cadastrarUsuario } = require("./controladores/usuarios");
+const login = require("./controladores/autenticacao.controladores");
 
 const rotas = require("express")();
-const { cadastrarUsuario } = require("./controladores/usuarios");
 
 rotas.post("/usuario", cadastrarUsuario);
 
