@@ -54,7 +54,7 @@ const listarTransacao = async (req, res) => {
 
    const resultado = await pool.query('select * from transacoes where usuario_id = $1',[usuarioId])
 
-    res.status(400).json(resultado.rows)
+    res.status(200).json(resultado.rows)
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensagem: "Erro no servidor." });
@@ -62,7 +62,20 @@ const listarTransacao = async (req, res) => {
 };
 
 const detalharTransacoes = async (req, res) => {
-  
+  try {
+    const usuarioId = req.usuarioId;
+    const id = req.params.id
+    const resultado = await pool.query('select * from transacoes where usuario_id = $1 and id = $2',[usuarioId, id])
+
+    if(resultado.rowCount === 0){
+      return res.status(404).json({ mensagem: " Não existe transações para o id especificado" })
+    }
+    
+    res.status(200).json(resultado.rows)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensagem: "Erro no servidor." });
+  }
 };
 
 module.exports = {
