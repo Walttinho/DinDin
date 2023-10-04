@@ -22,7 +22,7 @@ const cadastrarTransacao = async (req, res) => {
     );
 
     if (!categoria.rows.length) {
-      res.status(400).json({ mensagem: "A categoria especificada não existe" });
+      return res.status(400).json({ mensagem: "A categoria especificada não existe" });
     }
 
     const resultado = await pool.query(

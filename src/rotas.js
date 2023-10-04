@@ -22,7 +22,7 @@ rotas.get("/usuario", detalhesUsuario);
 
 rotas.put("/usuario", atualizarUsuario);
 
-rotas.get("/categorias", buscarCategorias);
+rotas.get("/categoria", buscarCategorias);
 
 rotas.post("/transacao", cadastrarTransacao);
 
