@@ -7,9 +7,9 @@ const cadastrarTransacao = async (req, res) => {
     const usuarioId = req.usuarioId;
 
     if (!tipo || !descricao || !valor || !data || !categoria_id) {
-      return res
-        .status(400)
-        .json({ mensagem: "Todos os campos obrigatórios devem ser informados." });
+      return res.status(400).json({
+        mensagem: "Todos os campos obrigatórios devem ser informados.",
+      });
     }
     if (tipo !== "entrada" && tipo !== "saida") {
       return res
@@ -29,16 +29,13 @@ const cadastrarTransacao = async (req, res) => {
       "INSERT INTO transacoes (tipo, descricao, valor, data, categoria_id, usuario_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
       [tipo, descricao, valor, data, categoria_id, usuarioId]
     );
-    
-    const dataFormatada = new Date(data)
-  
 
     const transacaoCadastrada = {
       id: resultado.rows[0].id,
       tipo,
       descricao,
       valor,
-      data: dataFormatada,
+      data,
       usuario_id: usuarioId,
       categoria_id,
       categoria_nome: categoria.rows[0].descricao,
@@ -51,4 +48,25 @@ const cadastrarTransacao = async (req, res) => {
   }
 };
 
-module.exports = { cadastrarTransacao };
+const listarTransacao = async (req, res) => {
+  try {
+    const usuarioId = req.usuarioId;
+
+   const resultado = await pool.query('select * from transacoes where usuario_id = $1',[usuarioId])
+
+    res.status(400).json(resultado.rows)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensagem: "Erro no servidor." });
+  }
+};
+
+const detalharTransacoes = async (req, res) => {
+  
+};
+
+module.exports = {
+  cadastrarTransacao,
+  listarTransacao,
+  detalharTransacoes,
+};

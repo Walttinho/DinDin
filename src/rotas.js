@@ -7,7 +7,7 @@ const {
 } = require("./controladores/usuarios");
 const login = require("./controladores/autenticacao.controladores");
 const {
-  cadastrarTransacao,
+  cadastrarTransacao, listarTransacao, detalharTransacoes,
 } = require("./controladores/transacoes.controladores");
 
 const rotas = require("express")();
@@ -25,5 +25,9 @@ rotas.put("/usuario", atualizarUsuario);
 rotas.get("/categorias", buscarCategorias);
 
 rotas.post("/transacao", cadastrarTransacao);
+
+rotas.get("/transacao", listarTransacao);
+
+rotas.get("/transacao/:id", detalharTransacoes)
 
 module.exports = rotas;
