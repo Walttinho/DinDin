@@ -7,7 +7,12 @@ const {
 } = require("./controladores/usuarios");
 const login = require("./controladores/autenticacao.controladores");
 const {
-  cadastrarTransacao, listarTransacao, detalharTransacoes,
+  cadastrarTransacao,
+  listarTransacao,
+  detalharTransacoes,
+  atualizarTransacao,
+  excluirTransacao,
+  obterExtrato,
 } = require("./controladores/transacoes.controladores");
 
 const rotas = require("express")();
@@ -28,6 +33,12 @@ rotas.post("/transacao", cadastrarTransacao);
 
 rotas.get("/transacao", listarTransacao);
 
-rotas.get("/transacao/:id", detalharTransacoes)
+rotas.get("/transacao/extrato", obterExtrato);
+
+rotas.get("/transacao/:id", detalharTransacoes);
+
+rotas.put("/transacao/:id", atualizarTransacao);
+
+rotas.delete("/transacao/:id", excluirTransacao);
 
 module.exports = rotas;
