@@ -1,5 +1,6 @@
 const pool = require("../conexão");
 const bcrypt = require("bcrypt");
+const { verificarCampos } = require("./transacoes.controladores");
 
 const cadastrarUsuario = async (req, res) => {
   const { nome, email, senha } = req.body;
@@ -50,9 +51,7 @@ const detalhesUsuario = async (req, res) => {
 const atualizarUsuario = async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  if (!nome || !email || !senha) {
-    return res.status(400).json({ mensagem: "Informações incompletas" });
-  }
+  verificarCampos([nome, email, senha], res);
 
   try {
     const { rowCount, rows } = await pool.query(

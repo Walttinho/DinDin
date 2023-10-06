@@ -4,7 +4,7 @@ const {
   cadastrarUsuario,
   detalhesUsuario,
   atualizarUsuario,
-} = require("./controladores/usuarios");
+} = require("./controladores/usuarios.controladores");
 const login = require("./controladores/autenticacao.controladores");
 const {
   cadastrarTransacao,

@@ -1,16 +1,23 @@
 const pool = require("../conexão");
 
+const verificarCampos = (campos, res) => {
+  for (let campo of campos) {
+    if (!campo) {
+      return res.status(400).json({
+        mensagem: "Todos os campos obrigatórios devem ser informados.",
+      });
+    }
+  }
+};
+
 const cadastrarTransacao = async (req, res) => {
   try {
     const { tipo, descricao, valor, data, categoria_id } = req.body;
 
     const usuarioId = req.usuarioId;
 
-    if (!tipo || !descricao || !valor || !data || !categoria_id) {
-      return res.status(400).json({
-        mensagem: "Todos os campos obrigatórios devem ser informados.",
-      });
-    }
+    verificarCampos([tipo, descricao, valor, data, categoria_id], res);
+
     if (tipo !== "entrada" && tipo !== "saida") {
       return res
         .status(400)
@@ -22,7 +29,9 @@ const cadastrarTransacao = async (req, res) => {
     );
 
     if (!categoria.rows.length) {
-      return res.status(400).json({ mensagem: "A categoria especificada não existe" });
+      return res
+        .status(400)
+        .json({ mensagem: "A categoria especificada não existe" });
     }
 
     const resultado = await pool.query(
@@ -101,11 +110,7 @@ const atualizarTransacao = async (req, res) => {
         .json({ mensagem: " Não existe transações para o id especificado" });
     }
 
-    if (!descricao || !valor || !data || !categoria_id || !tipo) {
-      return res.status(400).json({
-        mensagem: "Todos os campos obrigatórios devem ser informados.",
-      });
-    }
+    verificarCampos([descricao, valor, data, categoria_id, tipo], res);
 
     const categoria = await pool.query(
       "select * from categorias where id = $1",
@@ -188,4 +193,5 @@ module.exports = {
   atualizarTransacao,
   excluirTransacao,
   obterExtrato,
+  verificarCampos,
 };
