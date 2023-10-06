@@ -58,15 +58,40 @@ const cadastrarTransacao = async (req, res) => {
 };
 
 const listarTransacao = async (req, res) => {
+  const categorias = req.query.filtro;
+  const usuarioId = req.usuarioId;
+
   try {
-    const usuarioId = req.usuarioId;
+    if (categorias) {
+      if (categorias.length === 0) {
+        return res
+          .status(400)
+          .json({ mensagem: "Nenhuma categoria fornecida" });
+      }
 
-    const resultado = await pool.query(
-      "select * from transacoes where usuario_id = $1",
-      [usuarioId]
-    );
+      const indice = categorias.map((categoria, index) => `$${index + 2}`);
+      const consultaString = `
+        SELECT * FROM transacoes
+        WHERE usuario_id = $1 AND descricao IN (${indice.join(",")})
+      `;
 
-    res.status(200).json(resultado.rows);
+      const valores = [usuarioId, ...categorias];
+
+      const resultado = await pool.query(consultaString, valores);
+
+      return res.status(200).json(resultado.rows);
+    } else {
+      const resultado = await pool.query(
+        `SELECT t.*, c.descricao as categoria_nome
+        FROM transacoes t
+        JOIN categorias c ON t.categoria_id = c.id
+        WHERE t.usuario_id = $1
+        `,
+        [usuarioId]
+      );
+console.log(resultado.rows)
+      return res.status(200).json(resultado.rows);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensagem: "Erro no servidor." });
@@ -78,7 +103,11 @@ const detalharTransacoes = async (req, res) => {
     const usuarioId = req.usuarioId;
     const id = req.params.id;
     const resultado = await pool.query(
-      "select * from transacoes where usuario_id = $1 and id = $2",
+      `SELECT t.*, c.descricao as categoria_nome
+      FROM transacoes t
+      JOIN categorias c ON t.categoria_id = c.id
+      WHERE t.usuario_id = $1 and t.id = $2
+      `,
       [usuarioId, id]
     );
 
@@ -88,7 +117,7 @@ const detalharTransacoes = async (req, res) => {
         .json({ mensagem: " Não existe transações para o id especificado" });
     }
 
-    res.status(200).json(resultado.rows);
+    res.status(200).json(resultado.rows[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensagem: "Erro no servidor." });
