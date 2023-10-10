@@ -1,0 +1,636 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DinDin API de Finanças Pessoais",
+    "description": "A API de Finanças Pessoais é uma poderosa plataforma de gerenciamento financeiro que permite aos usuários controlar suas receitas e despesas de forma eficaz. Com esta API, os usuários podem se cadastrar, fazer login, gerenciar seus perfis, criar categorias personalizadas, registrar transações, consultar extratos e muito mais. A API garante a segurança dos dados e a privacidade do usuário, permitindo que cada usuário acesse apenas suas próprias informações.",
+    "contact": {
+      "nome": "Walter Netto",
+      "email": "walter.netto@live.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://mystic-brakenews.onrender.com",
+      "description": "Web Server"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    }
+    
+  ],
+  "paths": {
+    "/usuario": {
+      "post": {
+        "summary": "Criar um novo usuário",
+        "description": "Rota responsável por criar um novo usuário",
+        "tags": ["Usuários"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              },
+              "examples": {
+                "Usuário Exemplo 1": {
+                  "value": {
+                    "nome": "Walter Netto",
+                    "email": "walter@example.com",
+                    "senha": "senha123"
+                  }
+                },
+                "Usuário Exemplo 2": {
+                  "value": {
+                    "nome": "Maria Silva",
+                    "email": "maria@example.com",
+                    "senha": "senha456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Erro ao criar usuário"
+          },
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar usuário",
+        "description": "Rota responsável por editar informações de um usuário",
+        "tags": ["Usuários"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              },
+              "examples": {
+                "Exemplo de Atualização de Usuário 1": {
+                  "value": {
+                    "nome": "José Silva",
+                    "email": "jose@example.com",
+                    "senha": "senha789"
+                  }
+                },
+                "Exemplo de Atualização de Usuário 2": {
+                  "value": {
+                    "nome": "Helena Costa",
+                    "email": "helena@example.com",
+                    "senha": "senha789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Não autorizado"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "204": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "summary": "Detalhar usuário",
+        "description": "Rota responsável por detalhar o usuário",
+        "tags": ["Usuários"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Não autorizado"
+          },
+          "400": {
+            "description": "Erro ao buscar usuário"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Realizar login",
+        "description": "Rota responsável por autenticar um usuário registrado",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              },
+              "examples": {
+                "Exemplo de Login 1": {
+                  "value": {
+                    "email": "walter@example.com",
+                    "senha": "senha123"
+                  }
+                },
+                "Exemplo de Login 2": {
+                  "value": {
+                    "email": "maria@example.com",
+                    "senha": "senha456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Erro de autenticação"
+          },
+          "200": {
+            "description": "Login bem-sucedido"
+          }
+        }
+      }
+    }
+    ,
+        "/news/create": {
+      "post": {
+        "summary": "Create a new news",
+        "description": "Route responsible for creating a new News",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/News"
+              },
+              "examples": {
+                "News": {
+                  "value": {
+                    "user": "",
+                    "banner": "https://labs.tadigital.com/wp-content/uploads/2017/07/ES6-banner.jpg",
+                    "title": "ECMAScript 6",
+                    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                    "likes": [],
+                    "comments": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Error creating news"
+          },
+          "201": {
+            "description": "News created successfully",
+            "content": {
+              "application/json": {
+                "schemma": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/News"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/": {
+      "get": {
+        "summary": "Search all posts",
+        "description": "Route responsible for fetching all posts",
+        "tags": ["News"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Error finding news"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/News"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/top": {
+      "get": {
+        "summary": "Search top News",
+        "description": "Route responsible for fetching top News",
+        "tags": ["News"],
+        "responses": {
+          "400": {
+            "description": "Error finding top news"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schemma": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/News"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/search": {
+      "get": {
+        "summary": "Search News by title",
+        "description": "Route responsible for fetching the News that match the title sent via query params",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "No news found with the given title"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/News"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/byUser": {
+      "get": {
+        "summary": "Search news by use id",
+        "description": "Route responsible for fetching news by use id",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "400": {
+            "description": "Error searching news by user"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/News"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/findById/{id}/": {
+      "get": {
+        "summary": "Search News by id",
+        "description": "Route responsible for fetching News by id",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "News ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Error finding news"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schemma": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/News"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/{id}": {
+      "patch": {
+        "summary": "Update a News",
+        "description": "Route responsible for updating a News",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "Post ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/News"
+              },
+              "examples": {
+                "Post": {
+                  "value": {
+                    "banner": "Edit",
+                    "title": "Edit",
+                    "text": "Edit"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Error updating news"
+          },
+          "200": {
+            "description": "News successfully updated",
+            "content": {
+              "application/json": {
+                "schemma": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/News"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/{id}/": {
+      "delete": {
+        "summary": "Delete a News",
+        "description": "Route responsible for deleting a News",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "News ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Error deleting news"
+          },
+          "200": {
+            "description": "News successfully deleted"
+          }
+        }
+      }
+    },
+    "/news/like/{id}/": {
+      "patch": {
+        "summary": "Like a News",
+        "description": "Route responsible for liking a News",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "News ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Error liking news"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/news/comment/{id}/": {
+      "patch": {
+        "summary": "Comment on a News",
+        "description": "Route responsible for commenting on a News",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "News ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              },
+              "examples": {
+                "Comment": {
+                  "value": {
+                    "comment": "Comentário legal"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Error adding comment"
+          },
+          "200": {
+            "description": "Comment added successfully"
+          }
+        }
+      }
+    },
+    "/news/comment/{idNews}/{idComment}": {
+      "patch": {
+        "summary": "Comment on a News",
+        "description": "Route responsible for deleting comment on a News",
+        "tags": ["News"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNews",
+            "type": "string",
+            "description": "News ID",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "idComment",
+            "type": "string",
+            "description": "Comment ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "Comment deleted successfully"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "senha": {
+            "type": "string"
+          }
+        }
+      },
+      "News": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "banner": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "likes": {
+            "type": "number"
+          },
+          "comments": {
+            "type": "array"
+          },
+          "createdAt": {
+            "type": "date"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
