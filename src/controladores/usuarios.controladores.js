@@ -72,7 +72,7 @@ const atualizarUsuario = async (req, res) => {
       [nome, email, senhaEncriptada, req.usuarioId]
     );
 
-    return res.status(204).send();
+    return res.status(204).json();
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensagem: "Erro no servidor." });
