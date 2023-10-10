@@ -11,13 +11,14 @@
   },
   "servers": [
     {
-      "url": "https://.onrender.com",
+      "url": "https://api-dindin-ai2b.onrender.com/",
       "description": "Web Server"
     },
     {
       "url": "http://localhost:3000",
       "description": "Local Server"
     }
+   
   ],
   "paths": {
     "/usuario": {
