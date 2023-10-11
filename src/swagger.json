@@ -179,7 +179,7 @@
         "summary": "Criar uma nova transação",
         "description": "Rota responsável por criar uma nova transação",
         "tags": ["Transações"],
-        "security": [{ "bearerAuth": [] }],
+        "security": [{"bearerAuth": []}],
         "requestBody": {
           "content": {
             "application/json": {
@@ -278,29 +278,29 @@
                   }
                 }
               }
-            },
-            "responses": {
-              "400": {
-                "description": "Erro ao criar transação"
-              },
-              "201": {
-                "description": "Transação criada com sucesso",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/Transacao"
-                    }
-                  }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Erro ao criar transação"
+          },
+          "201": {
+            "description": "Transação criada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transacao"
                 }
-              },
-              "500": {
-                "description": "Erro no servidor",
-                "content": {
-                  "application/json": {
-                    "example": {
-                      "mensagem": "Erro no servidor."
-                    }
-                  }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "example": {
+                  "mensagem": "Erro no servidor."
                 }
               }
             }
