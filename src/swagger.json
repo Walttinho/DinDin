@@ -306,64 +306,63 @@
           }
         }
       }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     },
-
-    "components": {
-      "securitySchemes": {
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
-      },
-      "schemas": {
-        "Usuario": {
-          "type": "object",
-          "properties": {
-            "nome": {
-              "type": "string",
-              "description": "O nome do usuário."
-            },
-            "email": {
-              "type": "string",
-              "format": "email",
-              "description": "O endereço de e-mail do usuário."
-            },
-            "senha": {
-              "type": "string",
-              "description": "A senha do usuário."
-            }
+    "schemas": {
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "description": "O nome do usuário."
           },
-          "required": ["nome", "email", "senha"]
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "O endereço de e-mail do usuário."
+          },
+          "senha": {
+            "type": "string",
+            "description": "A senha do usuário."
+          }
         },
-        "Transacao": {
-          "type": "object",
-          "properties": {
-            "tipo": {
-              "type": "string",
-              "enum": ["entrada", "saida"],
-              "description": "O tipo da transação (entrada ou saída)."
-            },
-            "descricao": {
-              "type": "string",
-              "description": "A descrição da transação."
-            },
-            "valor": {
-              "type": "number",
-              "description": "O valor da transação."
-            },
-            "data": {
-              "type": "string",
-              "format": "date",
-              "description": "A data da transação (no formato 'YYYY-MM-DD')."
-            },
-            "categoria_id": {
-              "type": "integer",
-              "description": "O ID da categoria da transação."
-            }
+        "required": ["nome", "email", "senha"]
+      },
+      "Transacao": {
+        "type": "object",
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "enum": ["entrada", "saida"],
+            "description": "O tipo da transação (entrada ou saída)."
           },
-          "required": ["tipo", "descricao", "valor", "data", "categoria_id"]
-        }
+          "descricao": {
+            "type": "string",
+            "description": "A descrição da transação."
+          },
+          "valor": {
+            "type": "number",
+            "description": "O valor da transação."
+          },
+          "data": {
+            "type": "string",
+            "format": "date",
+            "description": "A data da transação (no formato 'YYYY-MM-DD')."
+          },
+          "categoria_id": {
+            "type": "integer",
+            "description": "O ID da categoria da transação."
+          }
+        },
+        "required": ["tipo", "descricao", "valor", "data", "categoria_id"]
       }
     }
   }
