@@ -179,6 +179,7 @@
         "summary": "Criar uma nova transação",
         "description": "Rota responsável por criar uma nova transação",
         "tags": ["Transações"],
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
