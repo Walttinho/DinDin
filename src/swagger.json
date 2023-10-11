@@ -18,7 +18,6 @@
       "url": "http://localhost:3000",
       "description": "Local Server"
     }
-   
   ],
   "paths": {
     "/usuario": {
@@ -174,30 +173,196 @@
           }
         }
       }
-    }
-  },
-
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+    },
+    "/transacao": {
+      "post": {
+        "summary": "Criar uma nova transação",
+        "description": "Rota responsável por criar uma nova transação",
+        "tags": ["Transações"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transacao"
+              },
+              "examples": {
+                "Exemplo 1": {
+                  "value": {
+                    "tipo": "entrada",
+                    "descricao": "Salário",
+                    "valor": 350000,
+                    "data": "2022-03-24T15:30:00.000Z",
+                    "categoria_id": 14
+                  }
+                },
+                "Exemplo 2": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Aluguel",
+                    "valor": 120000,
+                    "data": "2022-03-25T12:00:00.000Z",
+                    "categoria_id": 3
+                  }
+                },
+                "Exemplo 3": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Supermercado",
+                    "valor": 15000,
+                    "data": "2022-03-26T10:15:00.000Z",
+                    "categoria_id": 4
+                  }
+                },
+                "Exemplo 4": {
+                  "value": {
+                    "tipo": "entrada",
+                    "descricao": "Venda de Produtos",
+                    "valor": 500000,
+                    "data": "2022-03-27T14:45:00.000Z",
+                    "categoria_id": 15
+                  }
+                },
+                "Exemplo 5": {
+                  "value": {
+                    "tipo": "entrada",
+                    "descricao": "Bônus",
+                    "valor": 100000,
+                    "data": "2022-03-28T09:00:00.000Z",
+                    "categoria_id": 16
+                  }
+                },
+                "Exemplo 6": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Transporte Público",
+                    "valor": 5000,
+                    "data": "2022-03-29T08:30:00.000Z",
+                    "categoria_id": 13
+                  }
+                },
+                "Exemplo 7": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Restaurante",
+                    "valor": 8000,
+                    "data": "2022-03-30T19:00:00.000Z",
+                    "categoria_id": 8
+                  }
+                },
+                "Exemplo 8": {
+                  "value": {
+                    "tipo": "entrada",
+                    "descricao": "Presente de Aniversário",
+                    "valor": 5000,
+                    "data": "2022-03-31T14:00:00.000Z",
+                    "categoria_id": 10
+                  }
+                },
+                "Exemplo 9": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Medicamentos",
+                    "valor": 3000,
+                    "data": "2022-04-01T10:30:00.000Z",
+                    "categoria_id": 12
+                  }
+                },
+                "Exemplo 10": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Internet",
+                    "valor": 6000,
+                    "data": "2022-04-02T16:30:00.000Z",
+                    "categoria_id": 2
+                  }
+                }
+              }
+            },
+            "responses": {
+              "400": {
+                "description": "Erro ao criar transação"
+              },
+              "201": {
+                "description": "Transação criada com sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Transacao"
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Erro no servidor",
+                "content": {
+                  "application/json": {
+                    "example": {
+                      "mensagem": "Erro no servidor."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "schemas": {
-      "Usuario": {
-        "type": "object",
-        "properties": {
-          "nome": {
-            "type": "string"
+
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "schemas": {
+        "Usuario": {
+          "type": "object",
+          "properties": {
+            "nome": {
+              "type": "string",
+              "description": "O nome do usuário."
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "O endereço de e-mail do usuário."
+            },
+            "senha": {
+              "type": "string",
+              "description": "A senha do usuário."
+            }
           },
-          "email": {
-            "type": "string"
+          "required": ["nome", "email", "senha"]
+        },
+        "Transacao": {
+          "type": "object",
+          "properties": {
+            "tipo": {
+              "type": "string",
+              "enum": ["entrada", "saida"],
+              "description": "O tipo da transação (entrada ou saída)."
+            },
+            "descricao": {
+              "type": "string",
+              "description": "A descrição da transação."
+            },
+            "valor": {
+              "type": "number",
+              "description": "O valor da transação."
+            },
+            "data": {
+              "type": "string",
+              "format": "date",
+              "description": "A data da transação (no formato 'YYYY-MM-DD')."
+            },
+            "categoria_id": {
+              "type": "integer",
+              "description": "O ID da categoria da transação."
+            }
           },
-          "senha": {
-            "type": "string"
-          }
+          "required": ["tipo", "descricao", "valor", "data", "categoria_id"]
         }
       }
     }
