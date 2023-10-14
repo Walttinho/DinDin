@@ -602,7 +602,106 @@
           }
         }
       },
-      "put": {},
+      "put": {
+        "summary": "Atualizar Transação",
+        "description": "Atualiza as informações de uma Transação.",
+        "tags": ["Transações"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": " o ID da transação",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transacao"
+              },
+              "examples": {
+                "Exemplo 1": {
+                  "value": {
+                    "tipo": "entrada",
+                    "descricao": "Salário",
+                    "valor": 300000,
+                    "data": "2023-05-10T08:45:00.000Z",
+                    "categoria_id": 14
+                  }
+                },
+                "Exemplo 2": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Aluguel",
+                    "valor": 100000,
+                    "data": "2023-06-15T14:20:00.000Z",
+                    "categoria_id": 3
+                  }
+                },
+                "Exemplo 3": {
+                  "value": {
+                    "tipo": "saida",
+                    "descricao": "Supermercado",
+                    "valor": 18000,
+                    "data": "2023-07-20T10:55:00.000Z",
+                    "categoria_id": 4
+                  }
+                },
+                "Exemplo 4": {
+                  "value": {
+                    "tipo": "entrada",
+                    "descricao": "Venda de Produtos",
+                    "valor": 550000,
+                    "data": "2023-08-25T16:30:00.000Z",
+                    "categoria_id": 15
+                  }
+                }
+              }
+              
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Sucesso sem conteúdo"
+          }
+          
+        }
+      },
       "delete": {}
     }
   },
