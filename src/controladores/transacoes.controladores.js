@@ -89,7 +89,6 @@ const listarTransacao = async (req, res) => {
         `,
         [usuarioId]
       );
-console.log(resultado.rows)
       return res.status(200).json(resultado.rows);
     }
   } catch (error) {
