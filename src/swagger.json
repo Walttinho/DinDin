@@ -294,6 +294,56 @@
         }
       }
     },
+    "/categoria": {
+      "get": {
+        "summary": "Detalhar usuário",
+        "description": "Obtém os detalhes de um usuário.",
+        "tags": ["Categorias"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categorias"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/transacao": {
       "post": {
         "summary": "Criar uma nova transação",
@@ -493,6 +543,67 @@
           }
         }
       }
+    },
+    "/transacao/{id}": {
+      "get": {
+        "summary": "Listar transações por Id",
+        "description": "Lista transações financeiras por Id.",
+        "tags": ["Transações"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": " o ID da transação",
+            "required": true
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transacao"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {},
+      "delete": {}
     }
   },
   "components": {
@@ -526,17 +637,16 @@
       "Transacao": {
         "type": "object",
         "properties": {
-          "tipo": {
-            "type": "string",
-            "enum": ["entrada", "saida"],
-            "description": "O tipo da transação (entrada ou saída)."
+          "id": {
+            "type": "integer",
+            "description": "O Id da transação."
           },
           "descricao": {
             "type": "string",
             "description": "A descrição da transação."
           },
           "valor": {
-            "type": "number",
+            "type": "integer",
             "description": "O valor da transação."
           },
           "data": {
@@ -547,9 +657,36 @@
           "categoria_id": {
             "type": "integer",
             "description": "O ID da categoria da transação."
+          },
+          "usuario_id": {
+            "type": "integer",
+            "description": "O ID da usuário da transação."
+          },
+
+          "tipo": {
+            "type": "string",
+            "enum": ["entrada", "saida"],
+            "description": "O tipo da transação (entrada ou saída)."
+          },
+          "categoria_nome": {
+            "type": "string",
+            "description": "A descrição da categoria da transação."
           }
         },
         "required": ["tipo", "descricao", "valor", "data", "categoria_id"]
+      },
+      "Categorias": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "O ID da categoria da transação."
+          },
+          "descricao": {
+            "type": "string",
+            "description": "Nome da categoria da transação."
+          }
+        }
       },
       "Erro": {
         "type": "object",
