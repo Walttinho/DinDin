@@ -1,29 +1,43 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "DinDin API de Finanças Pessoais",
-    "description": "A API de Finanças Pessoais é uma poderosa plataforma de gerenciamento financeiro que permite aos usuários controlar suas receitas e despesas de forma eficaz. Com esta API, os usuários podem se cadastrar, fazer login, gerenciar seus perfis, criar categorias personalizadas, registrar transações, consultar extratos e muito mais. A API garante a segurança dos dados e a privacidade do usuário, permitindo que cada usuário acesse apenas suas próprias informações.",
+    "title": "API de Finanças Pessoais DinDin",
+    "description": "A API de Finanças Pessoais DinDin é uma plataforma poderosa para o gerenciamento financeiro. Ela permite aos usuários controlar eficazmente suas receitas e despesas. Com esta API, os usuários podem se cadastrar, fazer login, gerenciar seus perfis, criar categorias personalizadas, registrar transações, consultar extratos e muito mais. A API garante a segurança dos dados e a privacidade do usuário, permitindo que cada usuário acesse apenas suas próprias informações.",
     "contact": {
-      "nome": "Walter Netto",
+      "name": "Walter Netto",
       "email": "walter.netto@live.com"
     },
     "version": "1.0.0"
   },
+  "tags": [
+    {
+      "name": "Usuários",
+      "description": "Endpoints relacionados ao CRUD de usuários"
+    },
+    {
+      "name": "Autenticação",
+      "description": "Endpoints relacionados à autenticação de usuários"
+    },
+    {
+      "name": "Transações",
+      "description": "Endpoints relacionados a transações financeiras"
+    }
+  ],
   "servers": [
     {
       "url": "https://api-dindin-ai2b.onrender.com/",
-      "description": "Web Server"
+      "description": "Servidor Web"
     },
     {
       "url": "http://localhost:3000",
-      "description": "Local Server"
+      "description": "Servidor Local"
     }
   ],
   "paths": {
     "/usuario": {
       "post": {
         "summary": "Criar um novo usuário",
-        "description": "Rota responsável por criar um novo usuário",
+        "description": "Cria um novo usuário na plataforma.",
         "tags": ["Usuários"],
         "requestBody": {
           "content": {
@@ -32,14 +46,14 @@
                 "$ref": "#/components/schemas/Usuario"
               },
               "examples": {
-                "Usuário Exemplo 1": {
+                "Exemplo de Usuário 1": {
                   "value": {
                     "nome": "Walter Netto",
                     "email": "walter@example.com",
                     "senha": "senha123"
                   }
                 },
-                "Usuário Exemplo 2": {
+                "Exemplo de Usuário 2": {
                   "value": {
                     "nome": "Maria Silva",
                     "email": "maria@example.com",
@@ -48,14 +62,32 @@
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
           "400": {
-            "description": "Erro ao criar usuário"
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
           },
           "201": {
-            "description": "Usuário criado com sucesso",
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -68,7 +100,7 @@
       },
       "put": {
         "summary": "Atualizar usuário",
-        "description": "Rota responsável por editar informações de um usuário",
+        "description": "Atualiza as informações de um usuário.",
         "tags": ["Usuários"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -94,41 +126,94 @@
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
-          "401": {
-            "description": "Não autorizado"
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
           },
-          "404": {
-            "description": "Usuário não encontrado"
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
           },
           "204": {
-            "description": "OK"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
           }
         }
       },
       "get": {
         "summary": "Detalhar usuário",
-        "description": "Rota responsável por detalhar o usuário",
+        "description": "Obtém os detalhes de um usuário.",
         "tags": ["Usuários"],
         "security": [{ "bearerAuth": [] }],
         "responses": {
-          "401": {
-            "description": "Não autorizado"
-          },
-          "400": {
-            "description": "Erro ao buscar usuário"
-          },
-          "200": {
-            "description": "OK",
+          "500": {
+            "description": "Erro no servidor",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Usuario"
-                  }
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
                 }
               }
             }
@@ -139,7 +224,7 @@
     "/login": {
       "post": {
         "summary": "Realizar login",
-        "description": "Rota responsável por autenticar um usuário registrado",
+        "description": "Autentica um usuário registrado.",
         "tags": ["Autenticação"],
         "requestBody": {
           "content": {
@@ -162,14 +247,49 @@
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
           "401": {
-            "description": "Erro de autenticação"
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
           },
           "200": {
-            "description": "Login bem-sucedido"
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
           }
         }
       }
@@ -177,9 +297,9 @@
     "/transacao": {
       "post": {
         "summary": "Criar uma nova transação",
-        "description": "Rota responsável por criar uma nova transação",
+        "description": "Cria uma nova transação financeira.",
         "tags": ["Transações"],
-        "security": [{"bearerAuth": []}],
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -279,14 +399,42 @@
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
-          "400": {
-            "description": "Erro ao criar transação"
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
           },
-          "201": {
-            "description": "Transação criada com sucesso",
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -294,13 +442,51 @@
                 }
               }
             }
-          },
+          }
+        }
+      },
+      "get": {
+        "summary": "Listar todas as transações",
+        "description": "Lista todas as transações financeiras.",
+        "tags": ["Transações"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
           "500": {
             "description": "Erro no servidor",
             "content": {
               "application/json": {
-                "example": {
-                  "mensagem": "Erro no servidor."
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transacao"
                 }
               }
             }
@@ -364,6 +550,15 @@
           }
         },
         "required": ["tipo", "descricao", "valor", "data", "categoria_id"]
+      },
+      "Erro": {
+        "type": "object",
+        "properties": {
+          "mensagem": {
+            "type": "string",
+            "description": "Mensagem de erro."
+          }
+        }
       }
     }
   }
