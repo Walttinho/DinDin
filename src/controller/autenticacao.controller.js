@@ -1,48 +1,17 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const pool = require("../conexão");
+const autenticacaoService = require("../service/autenticacao.service");
 
-const login = async (req, res) => {
+const realizarLogin = async (req, res) => {
   try {
     const { email, senha } = req.body;
-
-    if (!email || !senha) {
-      return res
-        .status(400)
-        .json({ mensagem: "Todos os campos são obrigatórios" });
-    }
-
-    const usuario = await pool.query(
-      "select * from usuarios where email = $1",
-      [email]
-    );
-    if (usuario.rows.length === 0) {
-      return res.status(401).json({ mensagem: "email ou senha inválidos" });
-    }
-
-    const senhaCorreta = await bcrypt.compare(senha, usuario.rows[0].senha);
-    if (!senhaCorreta) {
-      return res.status(401).json({ mensagem: "email ou senha inválidos" });
-    }
-
-    const token = jwt.sign({ id: usuario.rows[0].id }, process.env.JWT_SECRET, {
-      expiresIn: 28800,
-    });
-
-    const resposta = {
-      "usuario": {
-          "id": usuario.rows[0].id,
-          "nome": usuario.rows[0].nome,
-          "email": usuario.rows[0].email
-      },
-      "token": token
-  }
-
-  res.status(200).json(resposta)
+    const resposta = await autenticacaoService.realizarLogin(email, senha);
+    res.status(200).json(resposta);
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensagem: "Erro no servidor." });
   }
 };
 
-module.exports = login;
+module.exports = {
+  realizarLogin,
+};
+
