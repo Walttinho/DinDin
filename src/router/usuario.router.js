@@ -4,7 +4,7 @@ const {
   cadastrarUsuario,
   detalhesUsuario,
   atualizarUsuario,
-} = require("../controladores/usuarios.controladores");
+} = require("../controller/usuarios.controller");
 const validaToken = require("../middleware/autenticacao.middleware");
 
 usuarioRouter.post("/", cadastrarUsuario);

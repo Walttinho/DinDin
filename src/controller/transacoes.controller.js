@@ -1,4 +1,4 @@
-const pool = require("../conexão");
+const pool = require("../database/database");
 
 const verificarCampos = (campos, res) => {
   for (let campo of campos) {

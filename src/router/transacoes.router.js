@@ -7,7 +7,7 @@ const {
   atualizarTransacao,
   excluirTransacao,
   obterExtrato,
-} = require("../controladores/transacoes.controladores");
+} = require("../controller/transacoes.controller");
 const validaToken = require("../middleware/autenticacao.middleware");
 
 

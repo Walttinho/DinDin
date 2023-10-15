@@ -1,6 +1,6 @@
-const pool = require("../conexão");
+const pool = require("../database/database");
 const bcrypt = require("bcrypt");
-const { verificarCampos } = require("./transacoes.controladores");
+const { verificarCampos } = require("./transacoes.controller");
 
 const cadastrarUsuario = async (req, res) => {
   const { nome, email, senha } = req.body;
