@@ -21,6 +21,10 @@
     {
       "name": "Transações",
       "description": "Endpoints relacionados a transações financeiras"
+    },
+    {
+      "name": "Categorias",
+      "description": "Endpoints relacionados a categoria das transações financeiras"
     }
   ],
   "servers": [
@@ -36,8 +40,8 @@
   "paths": {
     "/usuario": {
       "post": {
-        "summary": "Criar um novo usuário",
-        "description": "Cria um novo usuário na plataforma.",
+        "summary": "Registrar Usuário",
+        "description": "Registre-se e crie um novo usuário na plataforma.",
         "tags": ["Usuários"],
         "requestBody": {
           "content": {
@@ -87,7 +91,7 @@
             }
           },
           "201": {
-            "description": "Sucesso",
+            "description": "Sucesso! Você se juntou à nossa comunidade com sucesso. Seu novo perfil de usuário foi criado.",
             "content": {
               "application/json": {
                 "schema": {
@@ -99,8 +103,8 @@
         }
       },
       "put": {
-        "summary": "Atualizar usuário",
-        "description": "Atualiza as informações de um usuário.",
+        "summary": "Atualizar Perfil de Usuário",
+        "description": "Atualize as informações do seu perfil de usuário.",
         "tags": ["Usuários"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -161,20 +165,13 @@
             }
           },
           "204": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Usuario"
-                }
-              }
-            }
+            "description": "Sucesso sem conteúdo"
           }
         }
       },
       "get": {
-        "summary": "Detalhar usuário",
-        "description": "Obtém os detalhes de um usuário.",
+        "summary": "Detalhes do Perfil de Usuário",
+        "description": "Obtenha informações detalhadas sobre o seu perfil de usuário.",
         "tags": ["Usuários"],
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -209,7 +206,7 @@
             }
           },
           "200": {
-            "description": "Sucesso",
+            "description": "Sucesso! Detalhes do seu perfil de usuário foram recuperados com êxito.",
             "content": {
               "application/json": {
                 "schema": {
@@ -223,8 +220,8 @@
     },
     "/login": {
       "post": {
-        "summary": "Realizar login",
-        "description": "Autentica um usuário registrado.",
+        "summary": "Fazer Login",
+        "description": "Faça login para acessar sua conta registrada.",
         "tags": ["Autenticação"],
         "requestBody": {
           "content": {
@@ -282,7 +279,7 @@
             }
           },
           "200": {
-            "description": "Sucesso",
+            "description": "Bem-vindo de volta! Você fez login com sucesso na sua conta.",
             "content": {
               "application/json": {
                 "schema": {
@@ -296,8 +293,8 @@
     },
     "/categoria": {
       "get": {
-        "summary": "Detalhar usuário",
-        "description": "Obtém os detalhes de um usuário.",
+        "summary": "Detalhes da Categoria",
+        "description": "Obtenha informações detalhadas sobre uma categoria específica.",
         "tags": ["Categorias"],
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -332,7 +329,7 @@
             }
           },
           "200": {
-            "description": "Sucesso",
+            "description": "Sucesso! Detalhes da categoria foram recuperados com êxito.",
             "content": {
               "application/json": {
                 "schema": {
@@ -346,8 +343,8 @@
     },
     "/transacao": {
       "post": {
-        "summary": "Criar uma nova transação",
-        "description": "Cria uma nova transação financeira.",
+        "summary": "Registrar Transação Financeira",
+        "description": "Registre uma nova transação financeira.",
         "tags": ["Transações"],
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
@@ -484,7 +481,7 @@
             }
           },
           "200": {
-            "description": "Sucesso",
+            "description": "Sucesso! Sua transação financeira foi registrada com êxito.",
             "content": {
               "application/json": {
                 "schema": {
@@ -496,8 +493,8 @@
         }
       },
       "get": {
-        "summary": "Listar todas as transações",
-        "description": "Lista todas as transações financeiras.",
+        "summary": "Listar Transações",
+        "description": "Liste todas as transações financeiras.",
         "tags": ["Transações"],
         "security": [{ "bearerAuth": [] }],
         "responses": {
@@ -532,7 +529,7 @@
             }
           },
           "200": {
-            "description": "Sucesso",
+            "description": "Sucesso! A lista de transações financeiras foi recuperada com êxito.",
             "content": {
               "application/json": {
                 "schema": {
@@ -546,8 +543,8 @@
     },
     "/transacao/{id}": {
       "get": {
-        "summary": "Listar transações por Id",
-        "description": "Lista transações financeiras por Id.",
+        "summary": "Detalhes da Transação por ID",
+        "description": "Obtenha informações detalhadas sobre uma transação financeira específica por seu ID.",
         "tags": ["Transações"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -555,7 +552,7 @@
             "in": "path",
             "name": "id",
             "type": "string",
-            "description": " o ID da transação",
+            "description": "ID da transação",
             "required": true
           }
         ],
@@ -591,7 +588,7 @@
             }
           },
           "200": {
-            "description": "Sucesso",
+            "description": "Sucesso! Detalhes da transação financeira foram recuperados com êxito.",
             "content": {
               "application/json": {
                 "schema": {
@@ -603,8 +600,8 @@
         }
       },
       "put": {
-        "summary": "Atualizar Transação",
-        "description": "Atualiza as informações de uma Transação.",
+        "summary": "Atualizar Transação por ID",
+        "description": "Atualize informações de uma transação financeira específica por seu ID.",
         "tags": ["Transações"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -612,7 +609,7 @@
             "in": "path",
             "name": "id",
             "type": "string",
-            "description": " o ID da transação",
+            "description": "ID da transação",
             "required": true
           }
         ],
@@ -623,44 +620,25 @@
                 "$ref": "#/components/schemas/Transacao"
               },
               "examples": {
-                "Exemplo 1": {
+                "Exemplo de Atualização de Transação 1": {
                   "value": {
                     "tipo": "entrada",
-                    "descricao": "Salário",
-                    "valor": 300000,
-                    "data": "2023-05-10T08:45:00.000Z",
+                    "descricao": "Salário de março",
+                    "valor": 400000,
+                    "data": "2022-03-24T15:30:00.000Z",
                     "categoria_id": 14
                   }
                 },
-                "Exemplo 2": {
+                "Exemplo de Atualização de Transação 2": {
                   "value": {
                     "tipo": "saida",
                     "descricao": "Aluguel",
-                    "valor": 100000,
-                    "data": "2023-06-15T14:20:00.000Z",
+                    "valor": 120000,
+                    "data": "2022-03-25T12:00:00.000Z",
                     "categoria_id": 3
-                  }
-                },
-                "Exemplo 3": {
-                  "value": {
-                    "tipo": "saida",
-                    "descricao": "Supermercado",
-                    "valor": 18000,
-                    "data": "2023-07-20T10:55:00.000Z",
-                    "categoria_id": 4
-                  }
-                },
-                "Exemplo 4": {
-                  "value": {
-                    "tipo": "entrada",
-                    "descricao": "Venda de Produtos",
-                    "valor": 550000,
-                    "data": "2023-08-25T16:30:00.000Z",
-                    "categoria_id": 15
                   }
                 }
               }
-              
             }
           },
           "required": true
@@ -699,10 +677,58 @@
           "204": {
             "description": "Sucesso sem conteúdo"
           }
-          
         }
       },
-      "delete": {}
+      "delete": {
+        "summary": "Excluir Transação por ID",
+        "description": "Exclua uma transação financeira específica por seu ID.",
+        "tags": ["Transações"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "ID da transação",
+            "required": true
+          }
+        ]
+      },
+      "responses": {
+        "500": {
+          "description": "Erro no servidor",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Erro"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Requisição inválida",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Erro"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Erro de autenticação",
+          "content": {
+            "application.json": {
+              "schema": {
+                "$ref": "#/components/schemas/Erro"
+              }
+            }
+          }
+        },
+        "204": {
+          "description": "Sucesso sem conteúdo"
+        }
+      }
     }
   },
   "components": {
