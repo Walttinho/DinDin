@@ -1,6 +1,6 @@
 const categoriaRouter = require("express").Router();
 
-const buscarCategorias = require("../controller/categorias.controller");
+const {buscarCategorias} = require("../controller/categorias.controller");
 const validaToken = require("../middleware/autenticacao.middleware");
 
 categoriaRouter.use(validaToken);

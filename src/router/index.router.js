@@ -3,7 +3,7 @@ const router = require("express").Router();
 const transacaoRouter = require("./transacoes.router");
 const autenticacaoRouter = require("./autenticacao.router");
 const usuarioRouter = require("./usuario.router");
-const categoriaRouter = require("./categoria.router");
+const categoriaRouter = require("./categorias.router");
 const swaggerRouter = require("./swagger.route.js");
 
 router.use("/usuario", usuarioRouter);
