@@ -91,7 +91,7 @@
             }
           },
           "201": {
-            "description": "Sucesso! Você se juntou à nossa comunidade com sucesso. Seu novo perfil de usuário foi criado.",
+            "description": "Sucesso!",
             "content": {
               "application/json": {
                 "schema": {
@@ -206,7 +206,7 @@
             }
           },
           "200": {
-            "description": "Sucesso! Detalhes do seu perfil de usuário foram recuperados com êxito.",
+            "description": "Sucesso!",
             "content": {
               "application/json": {
                 "schema": {
@@ -329,7 +329,7 @@
             }
           },
           "200": {
-            "description": "Sucesso! Detalhes da categoria foram recuperados com êxito.",
+            "description": "Sucesso!",
             "content": {
               "application/json": {
                 "schema": {
@@ -481,7 +481,7 @@
             }
           },
           "200": {
-            "description": "Sucesso! Sua transação financeira foi registrada com êxito.",
+            "description": "Sucesso!",
             "content": {
               "application/json": {
                 "schema": {
@@ -529,7 +529,7 @@
             }
           },
           "200": {
-            "description": "Sucesso! A lista de transações financeiras foi recuperada com êxito.",
+            "description": "Sucesso!",
             "content": {
               "application/json": {
                 "schema": {
@@ -588,7 +588,7 @@
             }
           },
           "200": {
-            "description": "Sucesso! Detalhes da transação financeira foram recuperados com êxito.",
+            "description": "Sucesso!",
             "content": {
               "application/json": {
                 "schema": {
@@ -692,41 +692,92 @@
             "description": "ID da transação",
             "required": true
           }
-        ]
-      },
-      "responses": {
-        "500": {
-          "description": "Erro no servidor",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Erro"
+        ],
+
+        "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Sucesso sem conteúdo"
+          }
+        }
+      }
+    },
+    "/transacao/extrato": {
+      "get": {
+        "summary": "Consulta Extrato das Transações",
+        "description": "Exibe extrato detalhado sobre as transação financeira específica do usuário.",
+        "tags": ["Transações"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "500": {
+            "description": "Erro no servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Erro de autenticação",
+            "content": {
+              "application.json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Erro"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transacao"
+                }
               }
             }
           }
-        },
-        "400": {
-          "description": "Requisição inválida",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Erro"
-              }
-            }
-          }
-        },
-        "401": {
-          "description": "Erro de autenticação",
-          "content": {
-            "application.json": {
-              "schema": {
-                "$ref": "#/components/schemas/Erro"
-              }
-            }
-          }
-        },
-        "204": {
-          "description": "Sucesso sem conteúdo"
         }
       }
     }
