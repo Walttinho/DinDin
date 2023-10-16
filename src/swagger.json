@@ -11,20 +11,20 @@
   },
   "tags": [
     {
-      "name": "Usuários",
-      "description": "Endpoints relacionados ao CRUD de usuários"
-    },
-    {
       "name": "Autenticação",
       "description": "Endpoints relacionados à autenticação de usuários"
     },
     {
-      "name": "Transações",
-      "description": "Endpoints relacionados a transações financeiras"
+      "name": "Usuários",
+      "description": "Endpoints relacionados ao CRUD de usuários"
     },
     {
       "name": "Categorias",
       "description": "Endpoints relacionados a categoria das transações financeiras"
+    },
+    {
+      "name": "Transações",
+      "description": "Endpoints relacionados a transações financeiras"
     }
   ],
   "servers": [
