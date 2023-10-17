@@ -1,8 +1,9 @@
-const categoriasService = require("../service/categorias.service");
+const { buscarCategoriasService } = require("../service/categorias.service");
+
 
 const buscarCategorias = async (req, res) => {
   try {
-    const categorias = await categoriasService.buscarTodasAsCategorias();
+    const categorias = await buscarCategoriasService();
     res.status(200).json(categorias);
   } catch (error) {
     console.error(error);

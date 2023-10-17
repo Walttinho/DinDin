@@ -1,6 +1,6 @@
 const pool = require("../database/database");
 
-const buscarTodasAsCategorias = async () => {
+const buscarCategoriasRepository = async () => {
   try {
     const categorias = await pool.query("select * from categorias");
     return categorias.rows;
@@ -10,5 +10,5 @@ const buscarTodasAsCategorias = async () => {
 };
 
 module.exports = {
-  buscarTodasAsCategorias,
+  buscarCategoriasRepository,
 };

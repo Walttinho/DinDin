@@ -1,13 +1,14 @@
-const categoriasRepository = require("../repository/categorias.repository");
+const { buscarCategoriasRepository } = require("../repository/categorias.repository");
 
-const buscarTodasAsCategorias = async () => {
+
+const buscarCategoriasService = async () => {
   try {
-    return await categoriasRepository.buscarTodasAsCategorias();
+    return await buscarCategoriasRepository();
   } catch (error) {
     throw error;
   }
 };
 
 module.exports = {
-  buscarTodasAsCategorias,
+  buscarCategoriasService,
 };
