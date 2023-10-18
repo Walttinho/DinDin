@@ -1,4 +1,56 @@
-const pool = require("../database/database");
+const usuarioService = require("../service/usuario.service");
+
+const cadastrarUsuario = async (req, res) => {
+  const { nome, email, senha } = req.body;
+
+  if (!nome || !email || !senha) {
+    return res
+      .status(400)
+      .json({ mensagem: "Todos os campos são obrigatórios" });
+  }
+
+  try {
+    const novoUsuario = await usuarioService.cadastrarUsuario(
+      nome,
+      email,
+      senha
+    );
+    return res.status(201).json(novoUsuario);
+  } catch (error) {
+    res.status(error.status).json({ mensagem: error.message });
+  }
+};
+
+const detalhesUsuario = async (req, res) => {
+  try {
+    const usuario = await usuarioService.obterDetalhesUsuario(req.usuarioId);
+    return res.status(200).json(usuario);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensagem: "Erro no servidor." });
+  }
+};
+
+const atualizarUsuario = async (req, res) => {
+  const { nome, email, senha } = req.body;
+
+  try {
+    await usuarioService.atualizarUsuario(req.usuarioId, nome, email, senha);
+    return res.status(204).json();
+  } catch (error) {
+    res.status(error.status).json({ mensagem: error.message });
+  }
+};
+
+module.exports = {
+  cadastrarUsuario,
+  detalhesUsuario,
+  atualizarUsuario,
+};
+
+/* 
+
+ const pool = require("../database/database");
 const bcrypt = require("bcrypt");
 const { verificarCampos } = require("./transacoes.controller");
 
@@ -80,3 +132,4 @@ const atualizarUsuario = async (req, res) => {
 };
 
 module.exports = { cadastrarUsuario, detalhesUsuario, atualizarUsuario };
+ */

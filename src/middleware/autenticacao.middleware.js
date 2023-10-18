@@ -4,7 +4,7 @@ const validaToken = (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      return res.status(400).json({ mensagem: "Token não fornecido" });
+      return res.status(401).json({ mensagem: "Token não fornecido" });
     }
     const divisao = authorization.split(" ");
 

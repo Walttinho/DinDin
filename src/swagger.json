@@ -29,13 +29,14 @@
   ],
   "servers": [
     {
-      "url": "https://api-dindin-ai2b.onrender.com/",
-      "description": "Servidor Web"
-    },
-    {
       "url": "http://localhost:3000",
       "description": "Servidor Local"
+    },
+    {
+      "url": "https://api-dindin-ai2b.onrender.com/",
+      "description": "Servidor Web"
     }
+    
   ],
   "paths": {
     "/usuario": {
@@ -279,7 +280,7 @@
             }
           },
           "200": {
-            "description": "Bem-vindo de volta! Você fez login com sucesso na sua conta.",
+            "description": "Você fez login com sucesso na sua conta.",
             "content": {
               "application/json": {
                 "schema": {
